@@ -57,7 +57,7 @@ function renderTasks() {
     taskElem.innerText = task.name;
 
     // タスクの期限日をDate型でnew
-    let taskDueDate = new Date(task.dueDate + " 00:00:00:00");
+    let taskDueDate = new Date(task.dueDate + " 00:00:00");
 
     // 項目をクリックされたときの動作を設定
     taskElem.addEventListener("click", function () {
