@@ -109,24 +109,27 @@ function renderTasks() {
     let taskRemainDateNum = 0;
     let taskRemainDateElem = document.createElement("span");
 
-    if (taskDueDate >= todayDate) {
-      let taskRemainTime = taskDueDate.getTime() - todayDate.getTime();
-      taskRemainDateNum = Math.floor(taskRemainTime / (1000 * 60 * 60 * 24));
+    // タスクの期日が設定済みのときの処理
+    if (task.dueDate) {
+      if (taskDueDate >= todayDate) {
+        let taskRemainTime = taskDueDate.getTime() - todayDate.getTime();
+        taskRemainDateNum = Math.floor(taskRemainTime / (1000 * 60 * 60 * 24));
 
-      // タスクの残り日数を表示
-      let taskRemainText = "残り日数: " + taskRemainDateNum + "日";
-      taskRemainDateElem.innerText = taskRemainText;
+        // タスクの残り日数を表示
+        let taskRemainText = "残り日数: " + taskRemainDateNum + "日";
+        taskRemainDateElem.innerText = taskRemainText;
 
-      taskRemainDateElem.style.fontSize = "0.8rem";
-      taskRemainDateElem.style.marginLeft = "1rem";
-    } else {
-      // タスクの残り日数を表示
-      let taskRemainText = "期限が過ぎています";
-      taskRemainDateElem.innerText = taskRemainText;
+        taskRemainDateElem.style.fontSize = "0.8rem";
+        taskRemainDateElem.style.marginLeft = "1rem";
+      } else {
+        // タスクの残り日数を表示
+        let taskRemainText = "期限が過ぎています";
+        taskRemainDateElem.innerText = taskRemainText;
 
-      taskRemainDateElem.style.fontSize = "0.8rem";
-      taskRemainDateElem.style.marginLeft = "1rem";
-      taskRemainDateElem.style.color = "red";
+        taskRemainDateElem.style.fontSize = "0.8rem";
+        taskRemainDateElem.style.marginLeft = "1rem";
+        taskRemainDateElem.style.color = "red";
+      }
     }
 
     // 項目に対し、期限表示を追加
