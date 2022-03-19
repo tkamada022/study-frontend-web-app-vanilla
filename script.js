@@ -1,22 +1,6 @@
 let taskListElem;
 // タスクの連想配列の配列
-let tasks = [
-  {
-    name: "ライブの申し込み",
-    dueDate: "2022/03/01",
-    isCompleted: false,
-  },
-  {
-    name: "セトリの予想",
-    dueDate: "2022/03/20",
-    isCompleted: false,
-  },
-  {
-    name: "サイリウムの注文",
-    dueDate: "2022/03/31",
-    isCompleted: false,
-  },
-];
+let tasks = [];
 
 window.addEventListener("load", function () {
   // リストを取得
@@ -152,6 +136,12 @@ function renderTasks() {
 }
 
 function addTask(taskName, taskDueDate) {
+  // タスク名が未入力のときの防止
+  if (!taskName) {
+    window.alert("タスク名を入力してください");
+    return;
+  }
+
   // 同名タスクの登録防止
   for (let task of tasks) {
     if (task.name == taskName) {
