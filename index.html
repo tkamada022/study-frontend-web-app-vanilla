@@ -4,22 +4,143 @@
     <title>ToDo</title>
     <script src="script.js"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      /* 入力欄およびボタン */
+      input {
+        font-size: 1.3rem;
+      }
+
+      .todo-app-section {
+        max-width: 1400px;
+        padding: 0 20px;
+        margin: 0 auto;
+      }
+
+      .todo-app-section .section-title {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .todo-app-subsection {
+        margin-top: 2rem;
+      }
+
+      .todo-app-subsection .todo-app-section__section-title {
+        font-size: 1.5rem;
+      }
+
+      .task-input-form {
+        margin-top: 1rem;
+      }
+
+      .task-input-form .input-button-area {
+        margin-top: 1rem;
+      }
+
+      .input-button-area {
+        display: flex;
+        gap: 20px;
+      }
+
+      .input-button-area__date-select {
+        display: block;
+        width: 70%;
+        max-width: 300px;
+      }
+
+      .input-button-area__register-button {
+        display: block;
+        max-width: 200px;
+        width: 30%;
+      }
+
+      @media screen and (max-width: 767px) {
+        .input-button-area {
+          flex-direction: column;
+        }
+
+        .input-button-area__date-select {
+          max-width: none;
+          width: 100%;
+        }
+
+        .input-button-area__register-button {
+          max-width: none;
+          width: 100%;
+          border-radius: 4px;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        /* 768pxまでの幅の場合に適応される */
+        input[type="text"] {
+          width: 100%;
+          height: 40px;
+          box-sizing: border-box;
+        }
+      }
+
+      /* 送信ボタン */
+      input[type="submit"] {
+        background-color: #3498db;
+        border: none;
+        color: #ffffff;
+        padding: 0.4rem;
+      }
+
+      /* リスト */
+      ul {
+        padding: 0;
+      }
+
+      /* リスト項目 */
+      li {
+        background-color: #eeeeee;
+        font-size: 1.5rem;
+        list-style: none;
+        margin-top: 1rem;
+        padding: 1rem;
+      }
+    </style>
   </head>
   <body>
-    ToDo アプリ
+    <section class="todo-app-section">
+      <h1 class="section-title">ToDo アプリ</h1>
+      <div class="todo-app-section__inner">
+        <div class="todo-app-section__task-num">
+          残りタスク数：
+          <span id="numOfCompletedTasks"></span>/<span id="numOfTasks"></span>
+        </div>
+        <div class="task-input-form">
+          <form
+            id="addTaskForm"
+            onsubmit="addTask(task_name.value, task_due_date.value); event.preventDefault();"
+          >
+            <input type="text" name="task_name" placeholder="タスクを入力..." />
+            <div class="input-button-area">
+              <input
+                class="input-button-area__date-select"
+                name="task_due_date"
+                type="date"
+              />
+              <input
+                class="input-button-area__register-button"
+                type="submit"
+                value="登録"
+              />
+            </div>
+          </form>
+        </div>
 
-    <br />
-    <span id="numOfCompletedTasks"></span>/<span id="numOfTasks"></span>
-
-    <form
-      id="addTaskForm"
-      onsubmit="addTask(task_name.value, task_due_date.value); event.preventDefault();"
-    >
-      <input type="text" name="task_name" placeholder="タスクを入力..." />
-      <input name="task_due_date" type="date" />
-      <input type="submit" value="登録" />
-    </form>
-
-    <ul></ul>
+        <section class="todo-app-subsection">
+          <h2 class="todo-app-section__section-title">登録済みタスク</h2>
+          <ul></ul>
+        </section>
+      </div>
+    </section>
   </body>
 </html>

@@ -87,16 +87,16 @@ function renderTasks() {
     // 今日の日付とタスクの期限を比較
     // 期限切れのもの:赤色
     if (taskDueDate < todayDate) {
-      taskDueDateElem.style.color = "red";
+      taskDueDateElem.style.color = "#c0392b";
     }
     // 今日が期限のもの:黄色
     let matched = taskDueDate.getTime() == todayDate.getTime();
     if (matched) {
-      taskDueDateElem.style.color = "yellow";
+      taskDueDateElem.style.color = "#e67e22";
     }
     // 明日以降が期限のもの:黒色
     if (taskDueDate > tomorrowDate) {
-      taskDueDateElem.style.color = "black";
+      taskDueDateElem.style.color = "#333";
     }
 
     // タスクの日付を代入
