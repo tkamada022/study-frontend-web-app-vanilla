@@ -21,14 +21,14 @@ function renderTasks() {
   let numOfCompletedTasks = 0;
 
   // 今日の日付を取得
-  let todayDate = new Date();
+  const todayDate = new Date();
   todayDate.setHours(0);
   todayDate.setMinutes(0);
   todayDate.setSeconds(0);
   todayDate.setMilliseconds(0);
 
   // 明日の日付を取得
-  let tomorrowDate = new Date();
+  const tomorrowDate = new Date();
   tomorrowDate.setHours(0);
   tomorrowDate.setMinutes(0);
   tomorrowDate.setSeconds(0);
@@ -37,11 +37,11 @@ function renderTasks() {
 
   for (let task of tasks) {
     // リストの項目を作成
-    let taskElem = document.createElement("li");
+    const taskElem = document.createElement("li");
     taskElem.innerText = task.name;
 
     // タスクの期限日をDate型でnew
-    let taskDueDate = new Date(task.dueDate + " 00:00:00");
+    const taskDueDate = new Date(task.dueDate + " 00:00:00");
 
     // 項目をクリックされたときの動作を設定
     taskElem.addEventListener("click", function () {
@@ -63,25 +63,13 @@ function renderTasks() {
     }
 
     // 期限表示を作成
-    let taskDueDateElem = document.createElement("span");
+    const taskDueDateElem = document.createElement("span");
     taskDueDateElem.style.fontSize = "0.8rem";
     taskDueDateElem.style.fontSize = "italic";
     taskDueDateElem.style.marginLeft = "1rem";
 
-    // 今日の日付とタスクの期限を比較
-    // 期限切れのもの:赤色
-    if (taskDueDate < todayDate) {
-      taskDueDateElem.style.color = "#c0392b";
-    }
-    // 今日が期限のもの:黄色
-    let matched = taskDueDate.getTime() == todayDate.getTime();
-    if (matched) {
-      taskDueDateElem.style.color = "#e67e22";
-    }
-    // 明日以降が期限のもの:黒色
-    if (taskDueDate > tomorrowDate) {
-      taskDueDateElem.style.color = "#333";
-    }
+    // タスクの期限にスタイルを設定
+    setTaskDueDateStyle(taskDueDate, todayDate, todayDate, taskDueDateElem);
 
     // タスクの日付を代入
     if (task.dueDate) {
@@ -91,23 +79,23 @@ function renderTasks() {
     }
 
     let taskRemainDateNum = 0;
-    let taskRemainDateElem = document.createElement("span");
+    const taskRemainDateElem = document.createElement("span");
 
     // タスクの期日が設定済みのときの処理
     if (task.dueDate) {
       if (taskDueDate >= todayDate) {
-        let taskRemainTime = taskDueDate.getTime() - todayDate.getTime();
+        const taskRemainTime = taskDueDate.getTime() - todayDate.getTime();
         taskRemainDateNum = Math.floor(taskRemainTime / (1000 * 60 * 60 * 24));
 
         // タスクの残り日数を表示
-        let taskRemainText = "残り日数: " + taskRemainDateNum + "日";
+        const taskRemainText = "残り日数: " + taskRemainDateNum + "日";
         taskRemainDateElem.innerText = taskRemainText;
 
         taskRemainDateElem.style.fontSize = "0.8rem";
         taskRemainDateElem.style.marginLeft = "1rem";
       } else {
         // タスクの残り日数を表示
-        let taskRemainText = "期限が過ぎています";
+        const taskRemainText = "期限が過ぎています";
         taskRemainDateElem.innerText = taskRemainText;
 
         taskRemainDateElem.style.fontSize = "0.8rem";
@@ -216,4 +204,25 @@ function saveTasks() {
   let jsonString = JSON.stringify(tasks);
   // ローカルストレージには、文字列しか保存できないので、json形式から文字列にパースしてから保存
   window.localStorage.setItem("tasks", jsonString);
+}
+
+function setTaskDueDateStyle(
+  taskDueDate,
+  todayDate,
+  tomorrowDate,
+  taskDueDateElem
+) {
+  // 期限切れのもの:赤色
+  if (taskDueDate < todayDate) {
+    taskDueDateElem.style.color = "#c0392b";
+  }
+  // 今日が期限のもの:黄色
+  let matched = taskDueDate.getTime() == todayDate.getTime();
+  if (matched) {
+    taskDueDateElem.style.color = "#e67e22";
+  }
+  // 明日以降が期限のもの:黒色
+  if (taskDueDate > tomorrowDate) {
+    taskDueDateElem.style.color = "#333";
+  }
 }
