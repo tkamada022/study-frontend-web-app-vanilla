@@ -126,7 +126,7 @@ function renderTasks() {
 
       taskRemainDateElem.style.fontSize = "0.8rem";
       taskRemainDateElem.style.marginLeft = "1rem";
-      taskDueDateElem.style.color = "red";
+      taskRemainDateElem.style.color = "red";
     }
 
     // 項目に対し、期限表示を追加
